@@ -1,0 +1,966 @@
+/* ============================================
+   ВЫНЕСЕННЫЕ СТИЛИ ПРОЕКТА COTONTI CMF
+   Файл: styles.css
+   ============================================ */
+
+/* ============================================
+   ТЕМЫ: переменные для тёмной и светлой схем
+   ============================================ */
+
+/* Тёмная тема (по умолчанию). Переменные задаются для :root и при атрибуте data-bs-theme="dark" */
+:root,
+[data-bs-theme="dark"] {
+  /* Основной цвет фона всей страницы */
+  --bg-primary: #16191d;
+  /* Вторичный фон (используется в сайдбаре, карточках) */
+  --bg-secondary: #1b1e22;
+  /* Третичный фон (более светлый оттенок для контраста) */
+  --bg-tertiary: #212529;
+  /* Фон полей ввода */
+  --bg-input: #2c3037;
+  /* Основной цвет текста */
+  --text-primary: #e9ecef;
+  /* Вторичный (менее яркий) текст */
+  --text-secondary: #adb5bd;
+  /* Приглушённый текст (подписи, неактивные элементы) */
+  --text-muted: #6c757d;
+  /* Цвет границ элементов */
+  --border-color: #373b41;
+  /* Акцентный цвет (зелёный) */
+  --accent: #137C54;
+  /* Дополнительный акцентный цвет (синий) */
+  --accent-light: #3b82f6;
+  /* Фон шапки */
+  --header-bg: #16191d;
+  /* Тень для элементов */
+  --shadow: 0 2px 8px rgba(0,0,0,0.4);
+  /* Фон "чипсов" (кнопок-фильтров) */
+  --chip-bg: #2c3037;
+  /* Активный чипс */
+  --chip-active: #137C54;
+  /* Фон сайдбара */
+  --sidebar-bg: #1b1e22;
+  /* Фон карточек (калькулятор, блог) */
+  --card-bg: #212529;
+  /* Фон футера */
+  --footer-bg: #16191d;
+  /* Цвет фона при наведении на кнопки/элементы */
+  --button-hover: #2a2e35;
+  /* Цвет ссылок */
+  --link-color: #8ab4f8;
+  /* Ширина боковой панели */
+  --sidebar-width: 300px;
+}
+
+/* Светлая тема: переменные переопределяются при data-bs-theme="light" */
+[data-bs-theme="light"] {
+  --bg-primary: #f8f9fa;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f1f3f5;
+  --bg-input: #ffffff;
+  --text-primary: #212529;
+  --text-secondary: #495057;
+  --text-muted: #868e96;
+  --border-color: #dee2e6;
+  --accent: #137C54;
+  --accent-light: #0d6efd;
+  --header-bg: #e9ecef;
+  --shadow: 0 2px 8px rgba(0,0,0,0.08);
+  --chip-bg: #e9ecef;
+  --chip-active: #137C54;
+  --sidebar-bg: #f8f9fa;
+  --card-bg: #ffffff;
+  --footer-bg: #e9ecef;
+  --button-hover: #dee2e6;
+  --link-color: #0d6efd;
+}
+
+/* ============================================
+   БАЗОВЫЕ СТИЛИ
+   ============================================ */
+
+/* Применяем сброс отступов и box-sizing для всех элементов */
+* {
+  /* Убираем внешние отступы */
+  margin: 0;
+  /* Убираем внутренние отступы */
+  padding: 0;
+  /* Размеры включают границы и отступы */
+  box-sizing: border-box;
+}
+
+/* Основные настройки body */
+body {
+  /* Системный шрифт */
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  /* Фон из переменной */
+  background: var(--bg-primary);
+  /* Цвет текста из переменной */
+  color: var(--text-primary);
+  /* Плавная смена темы */
+  transition: background 0.3s, color 0.3s;
+  /* Flex-контейнер для вертикального расположения */
+  display: flex;
+  /* Элементы идут сверху вниз: хедер, layout, футер */
+  flex-direction: column;
+  /* Минимальная высота на весь экран */
+  min-height: 100vh;
+  /* Занимает всю ширину окна */
+  width: 100%;
+}
+
+/* Стили для ссылок */
+a {
+  /* Цвет ссылки из переменной */
+  color: var(--link-color);
+  /* Убираем подчёркивание */
+  text-decoration: none;
+}
+
+/* Ссылка при наведении */
+a:hover {
+  /* Меняем цвет на акцентный */
+  color: var(--accent-light);
+  /* Добавляем подчёркивание */
+  text-decoration: underline;
+}
+
+/* ============================================
+   ШАПКА (header)
+   ============================================ */
+
+/* Основной контейнер шапки */
+.header {
+  /* Фон шапки */
+  background: var(--header-bg);
+  /* Нижняя граница */
+  border-bottom: 1px solid var(--border-color);
+  /* Прилипает к верху при прокрутке */
+  position: sticky;
+  /* Приклеивается к верхнему краю */
+  top: 0;
+  /* Выше сайдбара, чтобы гамбургер был поверх */
+  z-index: 1100;
+  /* Фиксированная высота */
+  height: 56px;
+  /* Flex-контейнер для содержимого */
+  display: flex;
+  /* Вертикальное центрирование */
+  align-items: center;
+  /* Логотип слева, кнопки справа */
+  justify-content: space-between;
+  /* Отступы по бокам */
+  padding: 0 1.5rem;
+  /* Тень */
+  box-shadow: var(--shadow);
+  /* На всю ширину */
+  width: 100%;
+  /* Не шире окна браузера */
+  max-width: 100vw;
+}
+
+/* Левая часть шапки (гамбургер + логотип) */
+.header-left {
+  /* Flex для расположения в строку */
+  display: flex;
+  /* Вертикальное центрирование */
+  align-items: center;
+  /* Расстояние между гамбургером и логотипом */
+  gap: 1.5rem;
+  /* Позволяет сжиматься */
+  min-width: 0;
+  /* Может уменьшаться при нехватке места */
+  flex-shrink: 1;
+  /* Скрывает выходящий за пределы контент */
+  overflow: hidden;
+}
+
+/* Логотип */
+.logo {
+  /* Размер шрифта */
+  font-size: 1.4rem;
+  /* Жирный */
+  font-weight: 700;
+  /* Акцентный цвет */
+  color: var(--accent);
+  /* Flex для иконки и текста */
+  display: flex;
+  /* Вертикальное центрирование */
+  align-items: center;
+  /* Расстояние между иконкой и текстом */
+  gap: 0.5rem;
+  /* Обрезает текст при переполнении */
+  overflow: hidden;
+  /* Многоточие, если текст не помещается */
+  text-overflow: ellipsis;
+  /* Запрещает перенос строки */
+  white-space: nowrap;
+  /* Не выходит за родителя */
+  max-width: 100%;
+}
+
+/* Гамбургер (открывает сайдбар на мобильных) */
+.hamburger {
+  /* Скрыт по умолчанию */
+  display: none;
+  /* Убираем фон */
+  background: none;
+  /* Убираем рамку */
+  border: none;
+  /* Цвет иконки */
+  color: var(--text-secondary);
+  /* Размер иконки */
+  font-size: 1.6rem;
+  /* Курсор-указатель */
+  cursor: pointer;
+  /* Внутренний отступ */
+  padding: 0.3rem;
+  /* Скругление углов */
+  border-radius: 6px;
+  /* Не сжиматься */
+  flex-shrink: 0;
+}
+
+/* Гамбургер при наведении */
+.hamburger:hover {
+  /* Меняем фон */
+  background: var(--button-hover);
+}
+
+/* Навигационное меню */
+.nav-menu {
+  /* Flex-контейнер */
+  display: flex;
+  /* Убираем маркеры списка */
+  list-style: none;
+  /* Расстояние между пунктами */
+  gap: 1.5rem;
+  /* Толщина шрифта */
+  font-weight: 500;
+  /* Убираем внешние отступы */
+  margin: 0;
+  /* Убираем внутренние отступы */
+  padding: 0;
+}
+
+/* Ссылки в навигации */
+.nav-menu a {
+  /* Цвет текста */
+  color: var(--text-secondary);
+  /* Внутренний отступ для линии */
+  padding: 0.5rem 0;
+  /* Нижняя прозрачная граница для анимации */
+  border-bottom: 2px solid transparent;
+  /* Убираем подчёркивание */
+  text-decoration: none;
+  /* Плавный переход */
+  transition: 0.15s;
+}
+
+/* Активная/наведённая ссылка в навигации */
+.nav-menu a.active,
+.nav-menu a:hover {
+  /* Меняем цвет текста */
+  color: var(--text-primary);
+  /* Показываем акцентную нижнюю границу */
+  border-bottom-color: var(--accent);
+}
+
+/* Контейнер правых кнопок в шапке */
+.header-actions {
+  /* Flex-контейнер */
+  display: flex;
+  /* Вертикальное центрирование */
+  align-items: center;
+  /* Расстояние между кнопками */
+  gap: 12px;
+}
+
+/* Кнопка-иконка (тема, поиск и т.п.) */
+.btn-icon {
+  /* Прозрачный фон */
+  background: none;
+  /* Без рамки */
+  border: none;
+  /* Цвет иконки */
+  color: var(--text-secondary);
+  /* Размер иконки */
+  font-size: 1.2rem;
+  /* Внутренний отступ */
+  padding: 0.4rem;
+  /* Скругление углов */
+  border-radius: 6px;
+  /* Курсор-указатель */
+  cursor: pointer;
+}
+
+/* Кнопка-иконка при наведении */
+.btn-icon:hover {
+  /* Меняем фон */
+  background: var(--button-hover);
+  /* Меняем цвет иконки */
+  color: var(--text-primary);
+}
+
+/* Акцентная кнопка */
+.btn-accent {
+  /* Акцентный фон */
+  background: var(--accent);
+  /* Белый текст */
+  color: #fff;
+  /* Без рамки */
+  border: none;
+  /* Внутренние отступы */
+  padding: 0.5rem 1.2rem;
+  /* Скругление углов */
+  border-radius: 8px;
+  /* Толщина шрифта */
+  font-weight: 600;
+  /* Курсор-указатель */
+  cursor: pointer;
+}
+
+/* ============================================
+   ОСНОВНАЯ СЕТКА (layout)
+   ============================================ */
+
+/* Основной контейнер для сайдбара и контента */
+.layout {
+  /* Flex-контейнер */
+  display: flex;
+  /* Занимает всё доступное пространство */
+  flex: 1;
+  /* Максимальная ширина */
+  max-width: 1440px;
+  /* Центрирование */
+  margin: 0 auto;
+  /* На всю ширину */
+  width: 100%;
+  /* Ограничение ширины в 100% родителя */
+  max-width: 100%;
+}
+
+/* ============================================
+   САЙДБАР (валютный калькулятор)
+   ============================================ */
+
+/* Затемнение фона (overlay) при открытом мобильном сайдбаре */
+.sidebar-overlay {
+  /* Скрыт по умолчанию */
+  display: none;
+  /* Фиксированное позиционирование */
+  position: fixed;
+  /* Отступ сверху под шапку */
+  top: 56px;
+  /* Прижат к левому краю */
+  left: 0;
+  /* На всю ширину */
+  width: 100%;
+  /* Высота до низа экрана */
+  height: calc(100% - 56px);
+  /* Полупрозрачный чёрный фон */
+  background: rgba(0,0,0,0.4);
+  /* Выше контента, но ниже сайдбара */
+  z-index: 1050;
+  /* Плавное появление */
+  transition: opacity 0.3s;
+}
+
+/* Активный overlay */
+.sidebar-overlay.active {
+  /* Показываем overlay */
+  display: block;
+}
+
+/* Сайдбар (боковая панель) */
+.sidebar {
+  /* Ширина из переменной */
+  width: var(--sidebar-width);
+  /* Фон сайдбара */
+  background: var(--sidebar-bg);
+  /* Правая граница */
+  border-right: 1px solid var(--border-color);
+  /* Внутренние отступы */
+  padding: 1rem;
+  /* Flex-колонка */
+  display: flex;
+  /* Направление сверху вниз */
+  flex-direction: column;
+  /* Расстояние между блоками */
+  gap: 1rem;
+  /* Высота: весь экран минус шапка */
+  height: calc(100vh - 56px);
+  /* Прилипает к верху */
+  position: sticky;
+  /* Отступ сверху для прилипания */
+  top: 56px;
+  /* Вертикальная прокрутка, если контент не влезает */
+  overflow-y: auto;
+  /* Порядок слоёв */
+  z-index: 1000;
+  /* Плавное выезжание/заезжание */
+  transition: transform 0.3s ease;
+}
+
+/* Блок с вкладками "Все валюты" / "Избранное" */
+.sidebar-chips {
+  /* Flex-контейнер */
+  display: flex;
+  /* Расстояние между кнопками */
+  gap: 0.5rem;
+}
+
+/* Кнопка-чипс */
+.chip {
+  /* Внутренние отступы */
+  padding: 0.4rem 0.8rem;
+  /* Скругление углов */
+  border-radius: 8px;
+  /* Фон чипса */
+  background: var(--chip-bg);
+  /* Цвет текста */
+  color: var(--text-secondary);
+  /* Размер шрифта */
+  font-size: 0.85rem;
+  /* Толщина шрифта */
+  font-weight: 500;
+  /* Без рамки */
+  border: none;
+  /* Курсор-указатель */
+  cursor: pointer;
+  /* Flex для иконки и текста */
+  display: flex;
+  /* Вертикальное центрирование */
+  align-items: center;
+  /* Расстояние между иконкой и текстом */
+  gap: 0.3rem;
+}
+
+/* Активный чипс */
+.chip.active {
+  /* Акцентный фон */
+  background: var(--chip-active);
+  /* Белый текст */
+  color: #fff;
+}
+
+/* Поисковый блок внутри сайдбара */
+.search-block {
+  /* Flex-колонка */
+  display: flex;
+  /* Направление сверху вниз */
+  flex-direction: column;
+  /* Расстояние между строками */
+  gap: 0.5rem;
+}
+
+/* Строка поиска (поле ввода с иконкой) */
+.search-row {
+  /* Flex-строка */
+  display: flex;
+  /* Вертикальное центрирование */
+  align-items: center;
+  /* Фон поля */
+  background: var(--bg-input);
+  /* Рамка */
+  border: 1px solid var(--border-color);
+  /* Скругление углов */
+  border-radius: 8px;
+  /* Внутренние отступы */
+  padding: 0.2rem 0.5rem;
+}
+
+/* Иконка внутри строки поиска */
+.search-row i {
+  /* Цвет иконки */
+  color: var(--text-muted);
+  /* Отступы по бокам */
+  margin: 0 0.3rem;
+}
+
+/* Поле ввода в строке поиска */
+.search-row input {
+  /* Занимает всё доступное пространство */
+  flex: 1;
+  /* Прозрачный фон */
+  background: transparent;
+  /* Без рамки */
+  border: none;
+  /* Внутренние отступы */
+  padding: 0.6rem 0;
+  /* Цвет текста */
+  color: var(--text-primary);
+  /* Убираем обводку при фокусе */
+  outline: none;
+}
+
+/* Кнопка обмена местами в сайдбаре */
+.swap-sidebar-btn {
+  /* По центру колонки */
+  align-self: center;
+  /* Прозрачный фон */
+  background: none;
+  /* Без рамки */
+  border: none;
+  /* Акцентный цвет иконки */
+  color: var(--accent-light);
+  /* Размер иконки */
+  font-size: 1.2rem;
+  /* Курсор-указатель */
+  cursor: pointer;
+}
+
+/* Список валют */
+.currency-list .group-title {
+  /* Размер шрифта */
+  font-size: 0.75rem;
+  /* Толщина шрифта */
+  font-weight: 600;
+  /* Заглавные буквы */
+  text-transform: uppercase;
+  /* Цвет текста */
+  color: var(--text-muted);
+  /* Внутренние отступы */
+  padding: 0.5rem 0 0.2rem;
+  /* Внешний отступ сверху */
+  margin-top: 0.5rem;
+}
+
+/* Элемент списка валюты */
+.currency-item {
+  /* Flex-строка */
+  display: flex;
+  /* Вертикальное центрирование */
+  align-items: center;
+  /* Расстояние между логотипом и текстом */
+  gap: 10px;
+  /* Внутренние отступы */
+  padding: 0.6rem 0.4rem;
+  /* Скругление углов */
+  border-radius: 8px;
+  /* Курсор-указатель */
+  cursor: pointer;
+}
+
+/* Элемент валюты при наведении */
+.currency-item:hover {
+  /* Меняем фон */
+  background: var(--button-hover);
+}
+
+/* Логотип валюты (круглый/квадратный контейнер) */
+.currency-logo {
+  /* Фиксированная ширина */
+  width: 28px;
+  /* Фиксированная высота */
+  height: 28px;
+  /* Скругление углов */
+  border-radius: 6px;
+  /* Фон */
+  background: var(--chip-bg);
+  /* Flex для центрирования картинки */
+  display: flex;
+  /* Вертикальное центрирование */
+  align-items: center;
+  /* Горизонтальное центрирование */
+  justify-content: center;
+  /* Скрываем вылезающее за пределы */
+  overflow: hidden;
+}
+
+/* Изображение внутри логотипа валюты */
+.currency-logo img {
+  /* Ширина на весь контейнер */
+  width: 100%;
+  /* Высота на весь контейнер */
+  height: 100%;
+  /* Обрезать и заполнить */
+  object-fit: cover;
+}
+
+/* Блок с информацией о валюте */
+.currency-info {
+  /* Flex-колонка */
+  display: flex;
+  /* Направление сверху вниз */
+  flex-direction: column;
+}
+
+/* Код валюты */
+.currency-code {
+  /* Толщина шрифта */
+  font-weight: 600;
+  /* Размер шрифта */
+  font-size: 0.9rem;
+  /* Flex для кода и тега */
+  display: flex;
+  /* Вертикальное центрирование */
+  align-items: center;
+  /* Расстояние между кодом и тегом */
+  gap: 0.3rem;
+}
+
+/* Тег (сеть) */
+.currency-tag {
+  /* Размер шрифта */
+  font-size: 0.7rem;
+  /* Фон */
+  background: var(--chip-bg);
+  /* Цвет текста */
+  color: var(--text-secondary);
+  /* Внутренние отступы */
+  padding: 2px 6px;
+  /* Скругление углов */
+  border-radius: 4px;
+}
+
+/* Полное название валюты */
+.currency-name {
+  /* Размер шрифта */
+  font-size: 0.8rem;
+  /* Цвет текста */
+  color: var(--text-muted);
+}
+
+/* Заглушка для пустого избранного */
+.favorites-empty {
+  /* Цвет текста */
+  color: var(--text-muted);
+  /* Выравнивание по центру */
+  text-align: center;
+  /* Внутренние отступы */
+  padding: 2rem 0;
+  /* Скрыт по умолчанию */
+  display: none;
+}
+
+/* Показать заглушку */
+.favorites-empty.visible {
+  /* Делаем видимой */
+  display: block;
+}
+
+/* Кнопка закрытия сайдбара (только на мобильных) */
+.sidebar-close-mobile {
+  /* Скрыта по умолчанию */
+  display: none;
+  /* Акцентный фон */
+  background: var(--accent);
+  /* Белый текст */
+  color: #fff;
+  /* Без рамки */
+  border: none;
+  /* Внутренние отступы */
+  padding: 0.6rem;
+  /* Скругление углов */
+  border-radius: 8px;
+  /* Толщина шрифта */
+  font-weight: 600;
+  /* Курсор-указатель */
+  cursor: pointer;
+  /* Текст по центру */
+  text-align: center;
+  /* На всю ширину */
+  width: 100%;
+  /* Внешний отступ сверху */
+  margin-top: 0.5rem;
+}
+
+/* ============================================
+   ОСНОВНОЙ КОНТЕНТ
+   ============================================ */
+
+/* Контейнер основного контента */
+.main-content {
+  /* Занимает оставшееся пространство */
+  flex: 1;
+  /* Внутренние отступы */
+  padding: 1.5rem;
+  /* Запрещает быть меньше чем 0 */
+  min-width: 0;
+  /* Максимальная ширина */
+  max-width: 100%;
+}
+
+/* Карточка калькулятора */
+.calculator-card {
+  /* Фон карточки */
+  background: var(--card-bg);
+  /* Скругление углов */
+  border-radius: 16px;
+  /* Внутренние отступы */
+  padding: 1.5rem;
+  /* Внешний отступ снизу */
+  margin-bottom: 2rem;
+  /* Тень */
+  box-shadow: var(--shadow);
+  /* Максимальная ширина */
+  max-width: 100%;
+}
+
+/* Блок со статистикой (курсы, пары, пункты) */
+.stats {
+  /* Flex-строка с переносом */
+  display: flex;
+  /* Разрешаем перенос на новую строку */
+  flex-wrap: wrap;
+  /* Расстояние между элементами */
+  gap: 1.5rem;
+  /* Внешний отступ снизу */
+  margin-bottom: 1.5rem;
+}
+
+/* Цифра в статистике */
+.stat-number {
+  /* Размер шрифта */
+  font-size: 1.4rem;
+  /* Толщина шрифта */
+  font-weight: 700;
+}
+
+/* Подпись в статистике */
+.stat-label {
+  /* Размер шрифта */
+  font-size: 0.85rem;
+  /* Цвет текста */
+  color: var(--text-muted);
+}
+
+/* Ряд с полями обмена */
+.exchange-row {
+  /* Flex-строка */
+  display: flex;
+  /* Расстояние между полями */
+  gap: 1rem;
+  /* Выравнивание по нижнему краю */
+  align-items: flex-end;
+  /* Разрешаем перенос */
+  flex-wrap: wrap;
+}
+
+/* Поле обмена (select или input) */
+.exchange-field {
+  /* Занимает равную долю */
+  flex: 1;
+  /* Минимальная ширина */
+  min-width: 180px;
+}
+
+/* Метка поля */
+.exchange-field label {
+  /* Размер шрифта */
+  font-size: 0.8rem;
+  /* Толщина шрифта */
+  font-weight: 600;
+  /* Цвет текста */
+  color: var(--text-muted);
+  /* Заглавные буквы */
+  text-transform: uppercase;
+  /* Внешний отступ снизу */
+  margin-bottom: 0.2rem;
+  /* Блочный элемент */
+  display: block;
+}
+
+/* Select и input внутри поля обмена */
+.exchange-field select,
+.exchange-field input {
+  /* На всю ширину родителя */
+  width: 100%;
+  /* Внутренние отступы */
+  padding: 0.7rem;
+  /* Скругление углов */
+  border-radius: 8px;
+  /* Рамка */
+  border: 1px solid var(--border-color);
+  /* Фон */
+  background: var(--bg-input);
+  /* Цвет текста */
+  color: var(--text-primary);
+}
+
+/* Кнопка обмена местами (основная) */
+.swap-btn {
+  /* Фон при наведении */
+  background: var(--button-hover);
+  /* Без рамки */
+  border: none;
+  /* Цвет иконки */
+  color: var(--accent-light);
+  /* Фиксированная ширина */
+  width: 42px;
+  /* Фиксированная высота */
+  height: 42px;
+  /* Скругление углов */
+  border-radius: 8px;
+  /* Курсор-указатель */
+  cursor: pointer;
+  /* Flex для центрирования иконки */
+  display: flex;
+  /* Вертикальное центрирование */
+  align-items: center;
+  /* Горизонтальное центрирование */
+  justify-content: center;
+  /* Размер иконки */
+  font-size: 1.3rem;
+  /* Внешний отступ снизу */
+  margin-bottom: 0.2rem;
+}
+
+/* Кастомная обводная кнопка */
+.btn-outline-custom {
+  /* Прозрачный фон */
+  background: transparent;
+  /* Рамка */
+  border: 1px solid var(--border-color);
+  /* Цвет текста */
+  color: var(--text-primary);
+  /* Внутренние отступы */
+  padding: 0.5rem 1rem;
+  /* Скругление углов */
+  border-radius: 8px;
+  /* Курсор-указатель */
+  cursor: pointer;
+}
+
+/* ============================================
+   БЛОГ
+   ============================================ */
+
+/* Сетка для карточек блога */
+.blog-grid {
+  /* Грид-контейнер */
+  display: grid;
+  /* Автоматически заполнять колонки, минимум 260px */
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  /* Расстояние между карточками */
+  gap: 1.5rem;
+  /* Внешний отступ сверху */
+  margin-top: 1rem;
+}
+
+/* Карточка блога */
+.blog-card {
+  /* Фон карточки */
+  background: var(--card-bg);
+  /* Скругление углов */
+  border-radius: 12px;
+  /* Скрываем вылезающее за углы */
+  overflow: hidden;
+  /* Тень */
+  box-shadow: var(--shadow);
+  /* Максимальная ширина */
+  max-width: 100%;
+}
+
+/* Изображение в карточке блога */
+.blog-card img {
+  /* На всю ширину */
+  width: 100%;
+  /* Автоматическая высота */
+  height: auto;
+  /* Максимальная высота */
+  max-height: 160px;
+  /* Обрезать и заполнить */
+  object-fit: cover;
+}
+
+/* Тело карточки блога */
+.blog-card-body {
+  /* Внутренние отступы */
+  padding: 1rem;
+}
+
+/* ============================================
+   ФУТЕР
+   ============================================ */
+
+/* Футер сайта */
+.footer {
+  /* Фон футера */
+  background: var(--footer-bg);
+  /* Верхняя граница */
+  border-top: 1px solid var(--border-color);
+  /* Внутренние отступы */
+  padding: 2rem 1.5rem;
+  /* Текст по центру */
+  text-align: center;
+  /* Цвет текста */
+  color: var(--text-muted);
+  /* Прижимается к низу при flex */
+  margin-top: auto;
+  /* На всю ширину */
+  width: 100%;
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ
+   ============================================ */
+
+/* Планшеты и мобильные (ширина 1024px и меньше) */
+@media (max-width: 1024px) {
+  /* Показываем гамбургер */
+  .hamburger {
+    display: block;
+  }
+  /* Скрываем десктопное меню */
+  .nav-menu {
+    display: none;
+  }
+  /* Меняем поведение сайдбара на фиксированное */
+  .sidebar {
+    /* Фиксированное позиционирование */
+    position: fixed;
+    /* Отступ сверху под шапку */
+    top: 56px;
+    /* Прижат к левому краю */
+    left: 0;
+    /* Высота до низа экрана */
+    height: calc(100vh - 56px);
+    /* Сдвинут влево за экран */
+    transform: translateX(-100%);
+    /* Немного уже */
+    width: 280px;
+    /* Тень при выезде */
+    box-shadow: 4px 0 12px rgba(0,0,0,0.3);
+    /* Выше overlay */
+    z-index: 1060;
+  }
+  /* Сайдбар открыт */
+  .sidebar.open {
+    /* Выезжает на экран */
+    transform: translateX(0);
+  }
+  /* Показываем кнопку закрытия */
+  .sidebar-close-mobile {
+    display: block;
+  }
+  /* Меняем направление layout на колонку */
+  .layout {
+    flex-direction: column;
+  }
+  /* Уменьшаем отступы контента */
+  .main-content {
+    padding: 1rem;
+  }
+  /* Уменьшаем расстояние между гамбургером и логотипом */
+  .header-left {
+    gap: 0.5rem;
+  }
+  /* Уменьшаем размер логотипа */
+  .logo {
+    font-size: 1.2rem;
+  }
+}
+
+/* Очень маленькие экраны (600px и меньше) */
+@media (max-width: 600px) {
+  /* Поля обмена в столбик */
+  .exchange-row {
+    flex-direction: column;
+  }
+  /* Кнопка обмена по центру */
+  .swap-btn {
+    align-self: center;
+  }
+}

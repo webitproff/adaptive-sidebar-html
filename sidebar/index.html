@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+		<title>Adaptive Sidebar for COTONTI CMF</title>
+		<!-- Синхронный скрипт против мерцания темы -->
+		<script>
+			(function() {
+				var saved = localStorage.getItem('index-mono-theme');
+				if (saved === 'light' || saved === 'dark') {
+					document.documentElement.setAttribute('data-bs-theme', saved);
+					} else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+					document.documentElement.setAttribute('data-bs-theme', 'light');
+				}
+				// Иначе остаётся data-bs-theme="dark", заданный в HTML
+			})();
+		</script>
+		<!-- Bootstrap CSS (сетка, утилиты) -->
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+		<!-- Font Awesome (иконки) -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+		<!-- Наши вынесенные стили -->
+		<link rel="stylesheet" href="css/styles.css">
+	</head>
+	<body>
+		<!-- Шапка -->
+		<header class="header">
+			<div class="header-left">
+				<!-- Гамбургер (виден только на мобильных) -->
+				<button class="hamburger" id="hamburgerBtn"><i class="fas fa-bars"></i></button>
+				<!-- Логотип -->
+				<a href="/" class="logo"><i class="fas fa-exchange-alt"></i> COTONTI CMF</a>
+			</div>
+			<!-- Основное меню (скрыто на мобильных, показано на десктопах) -->
+			<nav class="d-none d-lg-flex">
+				<ul class="nav-menu">
+					<li><a href="#" class="active">Мониторинг</a></li>
+					<li><a href="#">Обменные пункты</a></li>
+					<li><a href="#">Блог</a></li>
+					<li><a href="#">Wiki</a></li>
+					<li><a href="#">Контакты</a></li>
+				</ul>
+			</nav>
+			<!-- Правые кнопки: переключение темы и вход -->
+			<div class="header-actions">
+				<button class="btn-icon theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+				<button class="btn-accent">Войти</button>
+			</div>
+		</header>
+		
+		<!-- Затемнение фона при открытом мобильном сайдбаре -->
+		<div class="sidebar-overlay" id="sidebarOverlay"></div>
+		
+		<!-- Основной макет: сайдбар + контент -->
+		<div class="layout">
+			<!-- Сайдбар (валютный калькулятор) -->
+			<aside class="sidebar" id="sidebar">
+				<!-- Вкладки "Все валюты" / "Избранное" -->
+				<div class="sidebar-chips">
+					<button class="chip active" id="tabAll">Все валюты</button>
+					<button class="chip" id="tabFav"><i class="far fa-star"></i> Избранное</button>
+				</div>
+				<!-- Поисковый блок -->
+				<div class="search-block">
+					<div class="search-row"><i class="fas fa-search"></i><input type="text" placeholder="Отдаю" id="giveInput"></div>
+					<button class="swap-sidebar-btn" id="swapSidebarBtn"><i class="fas fa-exchange-alt"></i></button>
+					<div class="search-row"><i class="fas fa-search"></i><input type="text" placeholder="Получаю" id="receiveInput"></div>
+				</div>
+				<!-- Контейнер со списком всех валют -->
+				<div id="allCurrenciesContainer">
+					<div class="currency-list">
+						<div class="group-title">Криптовалюта</div>
+						<div class="currency-item" data-code="USDT" data-network="TRC20">
+							<div class="currency-logo"><img src="img/icon/usdttrc20.svg" alt=""></div>
+							<div class="currency-info"><span class="currency-code">USDT <span class="currency-tag">TRC20</span></span><span class="currency-name">Tether USD</span></div>
+						</div>
+						<div class="currency-item" data-code="USDT" data-network="BEP20">
+							<div class="currency-logo"><img src="img/icon/usdtbep20.svg" alt=""></div>
+							<div class="currency-info"><span class="currency-code">USDT <span class="currency-tag">BEP20</span></span><span class="currency-name">Tether USD</span></div>
+						</div>
+						<div class="currency-item" data-code="USDC" data-network="ERC20">
+							<div class="currency-logo"><img src="img/icon/usdcerc20.svg" alt=""></div>
+							<div class="currency-info"><span class="currency-code">USDC <span class="currency-tag">ERC20</span></span><span class="currency-name">USD Coin</span></div>
+						</div>
+					</div>
+				</div>
+				<!-- Заглушка для пустого избранного -->
+				<div class="favorites-empty visible" id="favoritesEmpty">Избранные направления отсутствуют</div>
+				<!-- Кнопка закрытия сайдбара (только на мобильных) -->
+				<button class="sidebar-close-mobile" id="sidebarCloseBtn"><i class="fas fa-times"></i> Свернуть</button>
+			</aside>
+			
+			<!-- Основной контент -->
+			<main class="main-content">
+				<h1 class="mb-2" style="font-size:2rem;">Мониторинг обменных пунктов</h1>
+				<p class="mb-4" style="color:var(--text-secondary);">Поможем найти надежный вариант для вашего обмена.</p>
+				
+				<!-- Карточка калькулятора -->
+				<div class="calculator-card">
+					<!-- Статистика -->
+					<div class="stats">
+						<div class="stat-item"><span class="stat-number">1 140 637</span><span class="stat-label">курсов обмена</span></div>
+						<div class="stat-item"><span class="stat-number">53 364</span><span class="stat-label">валютные пары</span></div>
+						<div class="stat-item"><span class="stat-number">665</span><span class="stat-label">обменных пунктов</span></div>
+					</div>
+					<!-- Поля обмена -->
+					<div class="exchange-row">
+						<div class="exchange-field">
+							<label>Отдаю</label>
+							<select id="giveSelect">
+								<option>Сбербанк RUB</option><option>Тинькофф RUB</option><option>BTC</option>
+							</select>
+						</div>
+						<button class="swap-btn" id="mainSwapBtn"><i class="fas fa-exchange-alt"></i></button>
+						<div class="exchange-field">
+							<label>Получаю</label>
+							<select id="receiveSelect">
+								<option>BTC</option><option>ETH</option><option>USDT TRC20</option>
+							</select>
+						</div>
+						<div class="exchange-field">
+							<label>Сумма</label>
+							<input type="number" value="10000" id="amountInput">
+						</div>
+						<button class="btn-accent" id="searchBtn">Найти</button>
+					</div>
+				</div>
+				
+				<!-- Блог -->
+				<h2 style="margin:2rem 0 1rem;">Блог</h2>
+				<div class="blog-grid">
+					<div class="blog-card">
+						<img src="img/pages/01.webp" alt="">
+						<div class="blog-card-body">
+							<small style="color:var(--text-muted);">11 июня 2026</small>
+							<h3>Биткоин падает: почему это снова случилось?</h3>
+							<p style="font-size:0.9rem; color:var(--text-secondary);">Почему биткоин снова падает и стоит ли ожидать восстановления.</p>
+						</div>
+					</div>
+					<div class="blog-card">
+						<img src="img/pages/02.webp" alt="">
+						<div class="blog-card-body">
+							<small style="color:var(--text-muted);">10 июня 2026</small>
+							<h3>Первый ИИ-агент с «дуальной природой»: siren</h3>
+							<p style="font-size:0.9rem; color:var(--text-secondary);">Что такое siren и каких результатов она достигла.</p>
+						</div>
+					</div>
+				</div>
+			</main>
+		</div>
+		
+		<!-- Футер -->
+		<footer class="footer">© 2007-2026 Adaptive Sidebar for COTONTI CMF by webitproff</footer>
+		
+		<!-- Bootstrap JS (для интерактивных компонентов, если понадобятся) -->
+		<script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+		
+		<!-- Наши вынесенные скрипты -->
+		<script defer src="js/theme.js"></script>
+		<script defer src="js/sidebar.js"></script>
+		<script defer src="js/tabs.js"></script>
+		<script defer src="js/swap.js"></script>
+		<script defer src="js/search-demo.js"></script>
+	</body>
+</html>
