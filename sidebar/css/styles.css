@@ -74,7 +74,10 @@
   --button-hover: #dee2e6;
   --link-color: #0d6efd;
 }
-
+/* Скрываем сайдбар, если установлен атрибут data-sidebar-hidden */
+html[data-sidebar-hidden] .sidebar {
+  display: none !important;
+}
 /* ============================================
    БАЗОВЫЕ СТИЛИ
    ============================================ */
@@ -202,7 +205,7 @@ a:hover {
 /* Гамбургер (открывает сайдбар на мобильных) */
 .hamburger {
   /* Скрыт по умолчанию */
-  display: none;
+  /* display: none; */
   /* Убираем фон */
   background: none;
   /* Убираем рамку */
@@ -665,7 +668,75 @@ a:hover {
   /* Внешний отступ сверху */
   margin-top: 0.5rem;
 }
+/* ============================================
+   МЕНЮ В САЙДБАРЕ (ссылки "Мониторинг", "Обменные пункты" и т.д.)
+   ============================================ */
 
+/* Контейнер меню */
+.sidebar .nav {
+  /* Убираем стандартные маркеры */
+  list-style: none;
+  /* Убираем внешние и внутренние отступы */
+  margin: 0;
+  padding: 0;
+  /* Расстояние между пунктами */
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Каждый пункт меню */
+.sidebar .nav li {
+  /* Убираем стандартные отступы */
+  margin: 0;
+  padding: 0;
+}
+
+/* Ссылка внутри пункта */
+.sidebar .nav a {
+  /* Делаем ссылку блочным элементом, чтобы занимала всю ширину */
+  display: block;
+  /* Внутренние отступы */
+  padding: 0.6rem 0.8rem;
+  /* Цвет текста */
+  color: var(--text-secondary);
+  /* Убираем подчёркивание */
+  text-decoration: none;
+  /* Скругление углов */
+  border-radius: 8px;
+  /* Размер шрифта */
+  font-size: 0.9rem;
+  /* Толщина шрифта */
+  font-weight: 500;
+  /* Плавный переход фона и цвета */
+  transition: background 0.2s, color 0.2s, padding-left 0.2s;
+  /* Лёгкий отступ слева для декоративной полосы */
+  padding-left: 0.8rem;
+}
+
+/* Активная ссылка (с классом .active) */
+.sidebar .nav a.active {
+  /* Акцентный цвет текста */
+  color: var(--text-primary);
+  /* Фон активной ссылки */
+  background: var(--button-hover);
+  /* Толщина шрифта */
+  font-weight: 600;
+  /* Декоративная левая полоса */
+  border-left: 3px solid var(--accent);
+  padding-left: calc(0.8rem - 3px); /* компенсируем толщину полосы */
+}
+
+/* Наведение на ссылку */
+.sidebar .nav a:hover {
+  /* Фон при наведении */
+  background: var(--button-hover);
+  /* Цвет текста */
+  color: var(--text-primary);
+  /* Без декоративной полосы (если не активна) */
+  border-left: 3px solid transparent;
+  padding-left: calc(0.8rem - 3px);
+}
 /* ============================================
    ОСНОВНОЙ КОНТЕНТ
    ============================================ */
