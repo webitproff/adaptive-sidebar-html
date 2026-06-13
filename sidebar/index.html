@@ -7,6 +7,7 @@
 		<!-- Синхронный скрипт против мерцания темы -->
 		<script>
 			(function() {
+				// Обработка темы
 				var saved = localStorage.getItem('index-mono-theme');
 				if (saved === 'light' || saved === 'dark') {
 					document.documentElement.setAttribute('data-bs-theme', saved);
@@ -14,6 +15,10 @@
 					document.documentElement.setAttribute('data-bs-theme', 'light');
 				}
 				// Иначе остаётся data-bs-theme="dark", заданный в HTML
+				// Обработка скрытия сайдбара
+				if (localStorage.getItem('sidebar-hidden') === 'true') {
+					document.documentElement.setAttribute('data-sidebar-hidden', '');
+				}
 			})();
 		</script>
 		<!-- Bootstrap CSS (сетка, утилиты) -->
@@ -69,7 +74,7 @@
 				</div>
 				<!-- Контейнер со списком всех валют -->
 				<div id="allCurrenciesContainer">
-					<div class="currency-list">
+					<div class="currency-list mb-4">
 						<div class="group-title">Криптовалюта</div>
 						<div class="currency-item" data-code="USDT" data-network="TRC20">
 							<div class="currency-logo"><img src="img/icon/usdttrc20.svg" alt=""></div>
@@ -84,6 +89,13 @@
 							<div class="currency-info"><span class="currency-code">USDC <span class="currency-tag">ERC20</span></span><span class="currency-name">USD Coin</span></div>
 						</div>
 					</div>
+					<ul class="nav">
+						<li><a href="/" class="active">Мониторинг</a></li>
+						<li><a href="#">Обменные пункты</a></li>
+						<li><a href="#">Блог</a></li>
+						<li><a href="#">Wiki</a></li>
+						<li><a href="#">Контакты</a></li>
+					</ul>
 				</div>
 				<!-- Заглушка для пустого избранного -->
 				<div class="favorites-empty visible" id="favoritesEmpty">Избранные направления отсутствуют</div>
