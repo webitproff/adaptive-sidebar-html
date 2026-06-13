@@ -2,6 +2,15 @@
 
 **Detailed Guide: Creating an Adaptive Sidebar for COTONTI CMF**
 
+<img width="1292" height="809" alt="adaptive-sidebar-html_001" src="https://github.com/user-attachments/assets/b75ca62b-7b16-498d-9a6a-794ecf471781" />
+<img width="1296" height="809" alt="adaptive-sidebar-html_002" src="https://github.com/user-attachments/assets/5639bd60-b96c-4491-b454-82a360ded757" />
+<img width="1290" height="805" alt="adaptive-sidebar-html_003" src="https://github.com/user-attachments/assets/7ec2685c-c189-4d90-b69d-f37a9464d779" />
+<img width="1292" height="807" alt="adaptive-sidebar-html_004" src="https://github.com/user-attachments/assets/079f09b4-6e97-42ec-8c40-daa96b5a4057" />
+<img width="425" height="804" alt="adaptive-sidebar-html_005" src="https://github.com/user-attachments/assets/9b4d9525-fd0e-47a4-9ec2-d2d69c84ce14" />
+<img width="425" height="806" alt="adaptive-sidebar-html_006" src="https://github.com/user-attachments/assets/15961812-4b0e-407f-814a-bf9c34b387b6" />
+<img width="421" height="804" alt="adaptive-sidebar-html_007" src="https://github.com/user-attachments/assets/d8a418ff-6d5b-4928-ab60-e4b5d08a034b" />
+<img width="427" height="808" alt="adaptive-sidebar-html_008" src="https://github.com/user-attachments/assets/e05c2cbd-0f8f-4262-9f9a-8d39d26a2c1b" />
+
 ---
 
 ## Introduction
